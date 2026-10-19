@@ -22,7 +22,7 @@ def scalar(database: str, query: str):
 
 
 def test_oltp_loaded():
-    assert scalar(OLTP_DB, "SELECT COUNT(*) FROM orders") == 99441
+    assert scalar(OLTP_DB, "SELECT COUNT(*) FROM orders") >= 99441
 
 
 def test_latest_batch_success():

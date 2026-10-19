@@ -42,6 +42,8 @@ python .\olist_pipeline\src\run_pipeline.py --mode incremental
 
 Incremental mode hanya menyalin perubahan baru ke raw staging berdasarkan `source_updated_at`. Untuk menjaga hasil akademik tetap deterministik pada ukuran dataset ini, tahap conformance dan publikasi DWH membangun ulang snapshot bersih secara idempotent. Watermark hanya maju setelah seluruh proses dan validasi berhasil.
 
+Latihan lengkap untuk memasukkan satu transaksi ke OLTP, menjalankan incremental ETL, dan membandingkan hasilnya di DWH tersedia di [`demo/README.md`](demo/README.md).
+
 ## Dashboard
 
 ```powershell
