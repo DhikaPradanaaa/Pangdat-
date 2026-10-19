@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$project = "D:\Pangdat\olist_pipeline"
+$project = Split-Path $PSScriptRoot -Parent
 $logDir = Join-Path $project "logs"
 New-Item -ItemType Directory -Path $logDir -Force | Out-Null
 $stamp = Get-Date -Format "yyyyMMdd-HHmmss"

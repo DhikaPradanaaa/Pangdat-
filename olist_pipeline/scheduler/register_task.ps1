@@ -1,5 +1,5 @@
 $taskName = "OlistDailyETL"
-$script = "D:\Pangdat\olist_pipeline\scheduler\run_daily.ps1"
+$script = Join-Path $PSScriptRoot "run_daily.ps1"
 $action = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$script`""
 
 schtasks.exe /Create /TN $taskName /TR $action /SC DAILY /ST 01:00 /F

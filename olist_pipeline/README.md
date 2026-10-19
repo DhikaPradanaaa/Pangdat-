@@ -23,18 +23,21 @@ Database:
 
 ## Menjalankan initial load
 
-Pastikan MySQL Laragon aktif, kemudian:
+Pastikan MySQL Laragon aktif. Dari root repository, siapkan dataset dan konfigurasi lokal, kemudian jalankan initial load:
 
 ```powershell
-python D:\Pangdat\olist_pipeline\src\seed_oltp.py
-python D:\Pangdat\olist_pipeline\src\run_pipeline.py --mode full
+New-Item -ItemType Directory -Force .\output\olist_data_quality_final\raw
+Expand-Archive .\shared_packages\olist_original_dataset.zip .\output\olist_data_quality_final\raw -Force
+Copy-Item .\olist_pipeline\.env.example .\olist_pipeline\.env
+python .\olist_pipeline\src\seed_oltp.py
+python .\olist_pipeline\src\run_pipeline.py --mode full
 ```
 
 ## Menjalankan incremental load
 
 ```powershell
-python D:\Pangdat\olist_pipeline\src\simulate_oltp_feed.py --touch-latest 25
-python D:\Pangdat\olist_pipeline\src\run_pipeline.py --mode incremental
+python .\olist_pipeline\src\simulate_oltp_feed.py --touch-latest 25
+python .\olist_pipeline\src\run_pipeline.py --mode incremental
 ```
 
 Incremental mode hanya menyalin perubahan baru ke raw staging berdasarkan `source_updated_at`. Untuk menjaga hasil akademik tetap deterministik pada ukuran dataset ini, tahap conformance dan publikasi DWH membangun ulang snapshot bersih secara idempotent. Watermark hanya maju setelah seluruh proses dan validasi berhasil.
@@ -42,7 +45,7 @@ Incremental mode hanya menyalin perubahan baru ke raw staging berdasarkan `sourc
 ## Dashboard
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File D:\Pangdat\olist_pipeline\dashboard\run_dashboard.ps1
+powershell -ExecutionPolicy Bypass -File .\olist_pipeline\dashboard\run_dashboard.ps1
 ```
 
 Buka `http://127.0.0.1:8501`.
@@ -54,7 +57,7 @@ Dashboard hanya membaca `olist_dwh` serta tabel audit terpilih. Dashboard tidak 
 Daftarkan ETL harian pukul 01.00:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File D:\Pangdat\olist_pipeline\scheduler\register_task.ps1
+powershell -ExecutionPolicy Bypass -File .\olist_pipeline\scheduler\register_task.ps1
 ```
 
 Scheduled task menjalankan `scheduler/run_daily.ps1`.
@@ -102,15 +105,15 @@ Kebijakan pemuatan:
 ## Pengujian
 
 ```powershell
-python -m pytest D:\Pangdat\olist_pipeline\tests -q
+python -m pytest .\olist_pipeline\tests -q
 ```
 
 Pengujian memeriksa initial load OLTP, batch terakhir, validasi DWH, grain fakta, dan ketersediaan data mart.
 
 ## Pemulihan
 
-Versi DWH sebelum implementasi pipeline disimpan di:
+Backup lokal DWH sebelum implementasi pipeline, apabila dibuat, disimpan di:
 
 ```text
-D:\Pangdat\olist_pipeline\backups\olist_dwh_before_pipeline.sql
+olist_pipeline\backups\olist_dwh_before_pipeline.sql
 ```

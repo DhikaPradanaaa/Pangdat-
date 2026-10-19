@@ -579,21 +579,22 @@ Validasi: {status_counts.get('PASS', 0)} PASS dan {status_counts.get('FAIL', 0)}
 
 
 def main() -> None:
+    workspace_root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description="Bangun Olist star-schema data warehouse di SQLite.")
     parser.add_argument(
         "--source-dir",
         type=Path,
-        default=Path(r"D:\Pangdat\output\olist_data_quality_final\clean"),
+        default=workspace_root / "output" / "olist_data_quality_final" / "clean",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path(r"D:\Pangdat\output\olist_dwh"),
+        default=workspace_root / "output" / "olist_dwh",
     )
     parser.add_argument(
         "--schema",
         type=Path,
-        default=Path(r"D:\Pangdat\dwh\schema.sql"),
+        default=workspace_root / "dwh" / "schema.sql",
     )
     parser.add_argument("--include-errors", action="store_true")
     args = parser.parse_args()

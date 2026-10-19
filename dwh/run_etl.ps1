@@ -1,14 +1,15 @@
 param(
-    [string]$SourceDir = "D:\Pangdat\output\olist_data_quality_final\clean",
-    [string]$OutputDir = "D:\Pangdat\output\olist_dwh",
+    [string]$SourceDir = (Join-Path (Split-Path $PSScriptRoot -Parent) "output\olist_data_quality_final\clean"),
+    [string]$OutputDir = (Join-Path (Split-Path $PSScriptRoot -Parent) "output\olist_dwh"),
     [switch]$IncludeErrors
 )
 
+$workspace = Split-Path $PSScriptRoot -Parent
 $arguments = @(
-    "D:\Pangdat\scripts\build_olist_dwh.py",
+    (Join-Path $workspace "scripts\build_olist_dwh.py"),
     "--source-dir", $SourceDir,
     "--output-dir", $OutputDir,
-    "--schema", "D:\Pangdat\dwh\schema.sql"
+    "--schema", (Join-Path $workspace "dwh\schema.sql")
 )
 
 if ($IncludeErrors) {

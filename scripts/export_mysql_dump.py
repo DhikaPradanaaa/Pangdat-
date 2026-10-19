@@ -86,21 +86,22 @@ def export_table(
 
 
 def main() -> None:
+    workspace_root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description="Ekspor Olist DWH SQLite menjadi dump MySQL 8.")
     parser.add_argument(
         "--sqlite-db",
         type=Path,
-        default=Path(r"D:\Pangdat\output\olist_dwh\olist_dwh.sqlite"),
+        default=workspace_root / "output" / "olist_dwh" / "olist_dwh.sqlite",
     )
     parser.add_argument(
         "--schema",
         type=Path,
-        default=Path(r"D:\Pangdat\mysql\schema_mysql.sql"),
+        default=workspace_root / "mysql" / "schema_mysql.sql",
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path(r"D:\Pangdat\output\olist_dwh_mysql\olist_dwh_mysql.sql"),
+        default=workspace_root / "output" / "olist_dwh_mysql" / "olist_dwh_mysql.sql",
     )
     parser.add_argument("--batch-size", type=int, default=500)
     args = parser.parse_args()
