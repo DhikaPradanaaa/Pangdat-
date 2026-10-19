@@ -1,0 +1,20 @@
+pipeline:
+  name: olist_daily_etl
+  timezone: Asia/Makassar
+  default_schedule: "01:00"
+  lookback_days: 7
+  raw_retention_days: 30
+  log_retention_days: 90
+
+data_quality:
+  payment_tolerance: 0.02
+  load_statuses:
+    - valid
+    - corrected
+    - warning
+  reject_statuses:
+    - error
+
+dashboard:
+  title: Olist Commerce Intelligence
+  cache_ttl_seconds: 300

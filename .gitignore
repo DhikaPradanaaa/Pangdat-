@@ -1,0 +1,40 @@
+# Dependencies and editor files
+node_modules/
+.artifact_node_modules/
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Python caches and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local credentials and environment overrides
+.env
+*.pem
+*.key
+
+# Generated datasets, databases, exports, and archives
+output/
+tmp/
+olist_pipeline/runtime/
+olist_pipeline/logs/
+olist_pipeline/backups/
+*.sqlite
+*.sqlite3
+*.db
+*.zip
+*.csv
+*.xlsx
+*.ndjson
+
+# Runtime logs
+*.log
+*.err
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
